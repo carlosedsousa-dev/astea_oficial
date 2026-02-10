@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Gestão de Feiras</title>
+</head>
+<body>
+    <header>
+        <h1>Sistema de Gestão de Feiras</h1>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="#gestao-feiras">Gestão de Feiras</a></li>
+            <li><a href="#submissao-projetos">Submissão de Projetos</a></li>
+            <li><a href="#avaliacao">Avaliação</a></li>
+            <li><a href="#resultados">Resultados</a></li>
+            <li><a href="#comunicacao">Comunicação e Certificados</a></li>
+            <li><a href="#seguranca">Segurança</a></li>
+        </ul>
+    </nav>
+    
+    <main>
+        <section id="gestao-feiras">
+            <h2>Gestão de Feiras e Configuração</h2>
+            
+            <form>
+                <fieldset>
+                    <legend>Identidade da Feira</legend>
+                    <label for="nome-feira">Nome da Feira:</label>
+                    <input type="text" id="nome-feira" name="nome-feira" required><br>
+                    <label for="descricao-feira">Descrição:</label>
+                    <textarea id="descricao-feira" name="descricao-feira"></textarea><br>
+                </fieldset>
+                
+                <fieldset>
+                    <legend>Datas</legend>
+                    <label for="data-inicio-inscricoes">Início das Inscrições:</label>
+                    <input type="date" id="data-inicio-inscricoes" name="data-inicio-inscricoes" required><br>
+                    <label for="data-fim-inscricoes">Fim das Inscrições:</label>
+                    <input type="date" id="data-fim-inscricoes" name="data-fim-inscricoes" required><br>
+                    <label for="data-inicio-avaliacao">Início da Avaliação:</label>
+                    <input type="date" id="data-inicio-avaliacao" name="data-inicio-avaliacao" required><br>
+                    <label for="data-fim-avaliacao">Fim da Avaliação:</label>
+                    <input type="date" id="data-fim-avaliacao" name="data-fim-avaliacao" required><br>
+                </fieldset>
+                
+                <fieldset>
+                    <legend>Estrutura</legend>
+                    <label for="categorias">Categorias:</label>
+                    <input type="text" id="categorias" name="categorias" placeholder="Separe por vírgulas"><br>
+                </fieldset>
+                
+                <fieldset>
+                    <legend>Regras de Avaliação</legend>
+                    <label for="criterio1">Critério 1:</label>
+                    <input type="text" id="criterio1" name="criterio1" required><br>
+                    <label for="peso1">Peso:</label>
+                    <input type="number" id="peso1" name="peso1" min="1" max="100" required><br>
+                    <label for="descricao1">Descrição:</label>
+                    <textarea id="descricao1" name="descricao1"></textarea><br>
+                    <label for="escala1">Tipo de Escala:</label>
+                    <select id="escala1" name="escala1">
+                        <option value="numerica">Numérica</option>
+                        <option value="qualitativa">Qualitativa</option>
+                    </select><br>
+                    <!-- Adicionar mais critérios conforme necessário -->
+                </fieldset>
+                
+                <fieldset>
+                    <legend>Revisão</legend>
+                    <p>Revise as informações acima antes de publicar.</p>
+                </fieldset>
+                
+                <fieldset>
+                    <legend>Estado da Feira</legend>
+                    <label for="estado-rascunho">
+                        <input type="radio" id="estado-rascunho" name="estado" value="rascunho"> Rascunho (Privado)
+                    </label><br>
+                    <label for="estado-publicado">
+                        <input type="radio" id="estado-publicado" name="estado" value="publicado"> Publicado (Visível)
+                    </label><br>
+                </fieldset>
+                
+                <button type="submit">Salvar Feira</button>
+            </form>
+        </section>
+        
+        <section id="submissao-projetos">
+            <h2>Submissão e Gestão de Projetos</h2>
+            
+            <form>
+                <fieldset>
+                    <legend>Pacote de Evidências</legend>
+                    <label for="arquivo-pdf">Arquivo PDF/IMG:</label>
+                    <input type="file" id="arquivo-pdf" name="arquivo-pdf" accept=".pdf,.jpg,.png" required><br>
+                    <label for="link-video">Link Vídeo/Drive:</label>
+                    <input type="url" id="link-video" name="link-video"><br>
+                    <label for="resumo">Resumo:</label>
+                    <textarea id="resumo" name="resumo" required></textarea><br>
+                </fieldset>
+                
+                <fieldset>
+                    <legend>Integrantes do Projeto</legend>
+                    <label for="integrante1">Nome do Integrante 1:</label>
+                    <input type="text" id="integrante1" name="integrante1" required><br>
+                    <label for="instituicao1">Instituição:</label>
+                    <input type="text" id="instituicao1" name="instituicao1" required><br>
+                    <!-- Adicionar mais integrantes -->
+                    <label for="justificativa-mudanca">Justificativa para Mudança:</label>
+                    <textarea id="justificativa-mudanca" name="justificativa-mudanca"></textarea><br>
+                </fieldset>
+                
+                <p>Versão Atual: 1 (Histórico preservado para auditoria)</p>
+                
+                <button type="submit">Submeter Projeto</button>
+            </form>
+        </section>
+        
+        <section id="avaliacao">
+            <h2>Processo de Avaliação</h2>
+            
+            <article>
+                <h3>Painel do Avaliador</h3>
+                <p>Dados do Projeto: [Exemplo de Projeto Anonimizado]</p>
+                <p>Visualizador de Documentos: [Mock de Visualização]</p>
+                <form>
+                    <label for="nota-criterio1">Nota Critério 1:</label>
+                    <input type="number" id="nota-criterio1" name="nota-criterio1" min="0" max="10"><br>
+                    <!-- Mais critérios -->
+                    <label for="declaracao-conflito">Declaro ausência de conflito de interesses:</label>
+                    <input type="checkbox" id="declaracao-conflito" name="declaracao-conflito" required><br>
+                    <button type="submit">Enviar Avaliação</button>
+                </form>
+            </article>
+            
+            <p>Avaliação Cega: Nomes e instituições anonimizados.</p>
+        </section>
+        
+        <section id="resultados">
+            <h2>Resultados e Governança</h2>
+            
+            <table>
+                <caption>Ranking Final</caption>
+                <thead>
+                    <tr>
+                        <th>Posição</th>
+                        <th>Projeto</th>
+                        <th>Nota</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Projeto Exemplo 1</td>
+                        <td>9.5</td>
+                    </tr>
+                    <!-- Mais linhas -->
+                </tbody>
+            </table>
+            
+            <p>Notas consolidadas e imutáveis após envio.</p>
+        </section>
+        
+        <section id="comunicacao">
+            <h2>Comunicação e Certificação</h2>
+            
+            <ul>
+                <li>Notificação: Projeto Submetido</li>
+                <li>Notificação: Resultado Publicado</li>
+            </ul>
+            
+            <p>Certificado Digital: Disponível para download após encerramento.</p>
+            <a href="#">Baixar Certificado (Mock)</a>
+        </section>
+        
+        <section id="seguranca">
+            <h2>Segurança e Privacidade</h2>
+            
+            <p>Dados isolados por instituição. Trilha de auditoria para acessos.</p>
+        </section>
+    </main>
+    
+    <footer>
+        <p>Sistema de Gestão de Feiras &copy; 2026</p>
+    </footer>
+</body>
+</html>
