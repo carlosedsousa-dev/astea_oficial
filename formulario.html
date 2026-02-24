@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fomularios</title>
+</head>
+<body>
+    <form action="cadastro.js" method="post">
+        <fieldset>
+            <legend>Dados pessoais</legend>
+            <p>
+                <label for="inome">Nome: </label>
+                <input type="text" name="nome" id="inome">
+            </p>
+            <p>
+                <label for="iemail">E-mail :</label>
+                <input type="email" name="email" id="iemail">
+            </p>
+            <p>
+                <label for="isenha">Senha: </label>
+                <input type="password" name="senha" id="isenha">
+            </p>
+            <p>
+                <label for="idata">Data de Nascimento: </label>
+                <input type="date" name="data" id="idata">
+            </p>
+        </fieldset>
+        <fieldset>
+            <legend>Perfil Técnico</legend>
+            <section>
+                    <p>Quais as linguagens de interesse</p>
+                    <p>
+                        <input type="checkbox" name="HTMl" id="iHTML">
+                        <label for="iHTML">HTML</label>
+                    </p>
+                    <p>
+                        <input type="checkbox" name="CSS" id="iCSS">
+                        <label for="iCSS">CSS</label>
+                    </p>
+                    <p>
+                        <input type="checkbox" name="js" id="ijs">
+                        <label for="ijs">JavaScript</label>
+                    </p>
+                    <p>
+                        <input type="checkbox" name="py" id="ipy">
+                        <label for="ipy">Python</label>
+                    </p>
+            </section>
+            <section>
+                <p>Nivel de experiencia: </p>
+                <p>
+                    <input type="radio" name="xp" id="ini">
+                    <label for="ini">Iniciante</label>
+                    <input type="radio" name="xp" id="int">
+                    <label for="int">Intermediário</label>
+                    <input type="radio" name="xp" id="ava">
+                    <label for="ava">Avançado</label>
+                </p>
+            </section>
+            <section>
+                <P>Anaxe seu curriculo ou portfólio abaixo</P>
+                <p><input type="file" name="curr" id="icurr"></p>
+            </section>
+        </fieldset>
+        <fieldset>
+            <legend>Detalhes do Evento</legend>
+            <p>
+                <label for="itamcas">Tamanho da camiseta:</label>
+                <select name="tamcas" id="itamcas">
+                    <option value="P">Pequena</option>
+                    <option value="M">Media</option>
+                    <option value="G">Grande</option>
+                    <option value="GG">Extra Grande</option>
+                </select>
+            </p>
+
+            <p>
+                <label for="ijus">Escreva uma carta de morivação sobre porque você deveria participar</label> <br>
+                <input type="text" name="jus" id="ijus">
+            </p>
+        </fieldset>
+        <input type="submit" value="Enviar">
+    </form>
+</body>
+</html>
