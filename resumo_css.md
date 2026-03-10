@@ -1,4 +1,3 @@
-````markdown
 # Resumo de CSS
 
 ## 1. Para que serve o CSS?
@@ -219,7 +218,3 @@ O CSS é essencial para transformar páginas HTML simples em **interfaces organi
 Com conceitos como **Box Model, Flexbox, classes e propriedades de estilo**, é possível controlar praticamente todos os aspectos visuais de um site.
 
 A prática recomendada é sempre utilizar **CSS externo**, pois isso melhora a organização, reutilização e manutenção do código em projetos web.
-
-```
-```
-
