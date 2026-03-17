@@ -1,5 +1,5 @@
 /**
- * Astea Scientific - Interatividade do Sistema
+ * Astea - Interatividade do Sistema
  * Funcionalidades: Toast, Filtro de Tabela e ScrollSpy
  */
 
@@ -19,11 +19,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- 2. LOGICA MENU MOBILE (TOGGLE & OVERLAY) ---
     function toggleSidebar() {
-        sidebar.classList.toggle('open');
+        const isOpened = sidebar.classList.toggle('open');
         sidebarOverlay.classList.toggle('active');
         
+        // Atualiza acessibilidade
+        mobileToggle.setAttribute('aria-expanded', isOpened);
+        
         const icon = mobileToggle.querySelector('i');
-        const isOpened = sidebar.classList.contains('open');
         icon.setAttribute('data-lucide', isOpened ? 'x' : 'menu');
         lucide.createIcons();
 
@@ -92,8 +94,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 5. SCROLLSPY (DESTAQUE AUTOMÁTICO DO MENU) ---
     const observerOptions = {
         root: null,
-        // Ajustado: Detecta quando a seção passa do meio da tela (-50%)
-        rootMargin: '0px 0px -50% 0px', 
+        // Detecta quando a seção entra no topo 30% da tela
+        rootMargin: '-10% 0px -70% 0px', 
         threshold: 0
     };
 
@@ -118,20 +120,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Correção para o último item (Comunicação) em telas grandes
-    window.addEventListener('scroll', () => {
-        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 10) {
-            const ultimaSecao = sections[sections.length - 1];
-            atualizarMenuAtivo(ultimaSecao.getAttribute('id'));
-        }
-    });
-
-    // Fecha sidebar ao clicar em links no mobile
+    // Gerencia cliques nos links para ativação imediata e fechamento do menu mobile
     menuLinks.forEach(link => {
-        link.addEventListener('click', () => {
+        link.addEventListener('click', (e) => {
+            const id = link.getAttribute('href').substring(1);
+            atualizarMenuAtivo(id);
+
             if (window.innerWidth <= 768 && sidebar.classList.contains('open')) {
                 toggleSidebar();
             }
         });
+    });
+
+    // Destaque inicial baseado na URL
+    const hash = window.location.hash.substring(1);
+    if (hash) {
+        atualizarMenuAtivo(hash);
+    }
+
+    // Correção para o final da página (garante que o último item ative)
+    window.addEventListener('scroll', () => {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 20) {
+            const ultimaSecao = sections[sections.length - 1];
+            atualizarMenuAtivo(ultimaSecao.getAttribute('id'));
+        }
     });
 });
