@@ -68,8 +68,8 @@ body {
     display: none;
     position: fixed;
     top: 16px;
-    left: 16px;
-    z-index: 1000;
+    right: 16px; /* Mudado de left para right */
+    z-index: 1001; /* Aumentado para ficar acima do overlay */
     background-color: var(--primary);
     color: white;
     border: none;
@@ -77,6 +77,23 @@ body {
     border-radius: var(--radius-lg);
     cursor: pointer;
     box-shadow: var(--shadow-elevation);
+}
+
+/* Sidebar Overlay */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 998; /* Abaixo da sidebar e do botão */
+    backdrop-filter: blur(2px); /* Efeito de desfoque moderno */
+}
+
+.sidebar-overlay.active {
+    display: block;
 }
 
 /* Sidebar */
@@ -91,6 +108,7 @@ body {
     height: 100vh;
     z-index: 999;
     transition: transform 0.3s ease;
+    overflow-y: auto; /* Permite rolagem se o conteúdo exceder a altura */
 }
 
 .sidebar .logo {
@@ -389,7 +407,49 @@ footer {
     color: var(--text-secondary);
 }
 
-/* Responsive */
+/* Toast Notifications */
+#toast-container {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 2000;
+}
+
+.toast {
+    background-color: var(--bg-card);
+    color: var(--text-primary);
+    padding: 16px 24px;
+    border-radius: var(--radius-lg);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border-left: 4px solid var(--primary);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: var(--text-body);
+    font-weight: 500;
+    min-width: 280px;
+    animation: slideIn 0.3s ease-out forwards;
+    transition: opacity 0.3s ease;
+}
+
+.toast.success { border-left-color: var(--success); }
+.toast.warning { border-left-color: var(--warning); }
+.toast.error { border-left-color: var(--error); }
+
+@keyframes slideIn {
+    from { transform: translateX(100%); opacity: 0; }
+    to { transform: translateX(0); opacity: 1; }
+}
+
+/* Smooth transition for active menu items */
+.sidebar nav ul li a {
+    transition: all 0.3s ease;
+}
+
+/* Responsive fixes */
 @media (max-width: 768px) {
     .mobile-toggle {
         display: block;

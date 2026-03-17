@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Astea | Gestão de Feiras</title>
+    <title>Astea</title>
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="logo.png">
     <!-- Google Fonts: Inter -->
@@ -19,6 +19,9 @@
     <button class="mobile-toggle" id="mobileToggle">
         <i data-lucide="menu"></i>
     </button>
+
+    <!-- Overlay Background (Mobile) -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
 
     <div class="app-container">
         <!-- Sidebar Navigation -->
@@ -36,7 +39,6 @@
                     <li><a href="#avaliacao"><i data-lucide="clipboard-check"></i> Avaliação</a></li>
                     <li><a href="#resultados"><i data-lucide="bar-chart-3"></i> Resultados</a></li>
                     <li><a href="#comunicacao"><i data-lucide="message-square"></i> Comunicação</a></li>
-                    <li><a href="#seguranca"><i data-lucide="shield-check"></i> Segurança</a></li>
                 </ul>
             </nav>
         </aside>
@@ -125,8 +127,12 @@
             <section id="resultados">
                 <h2>Resultados e Governança</h2>
                 
+                <div class="table-controls" style="margin-bottom: 16px;">
+                    <input type="text" id="busca-projeto" placeholder="Filtrar projetos por nome..." style="margin-bottom: 0;">
+                </div>
+
                 <div class="table-container">
-                    <table>
+                    <table id="tabela-ranking">
                         <caption>Ranking de Projetos Consolidados</caption>
                         <thead>
                             <tr>
@@ -165,8 +171,8 @@
                 <p>Acompanhe suas notificações e baixe seus certificados digitais.</p>
                 
                 <div style="margin-top: 20px; display: flex; gap: 12px;">
-                    <button style="background-color: var(--primary-light); color: var(--primary);">Ver Notificações</button>
-                    <button>Baixar Certificado</button>
+                    <button type="button" class="btn-secondary" style="background-color: var(--primary-light); color: var(--primary);">Ver Notificações</button>
+                    <button type="button">Baixar Certificado</button>
                 </div>
             </section>
 
@@ -175,42 +181,10 @@
             </footer>
         </main>
     </div>
-    <script>
-      lucide.createIcons();
 
-      const sidebar = document.getElementById('sidebar');
-      const mobileToggle = document.getElementById('mobileToggle');
-      const menuLinks = document.querySelectorAll('.sidebar nav ul li a');
-      
-      // Toggle sidebar on mobile
-      mobileToggle.addEventListener('click', () => {
-          sidebar.classList.toggle('open');
-          const icon = mobileToggle.querySelector('i');
-          if (sidebar.classList.contains('open')) {
-              icon.setAttribute('data-lucide', 'x');
-          } else {
-              icon.setAttribute('data-lucide', 'menu');
-          }
-          lucide.createIcons();
-      });
+    <!-- Toast Notification Container -->
+    <div id="toast-container"></div>
 
-      // Sidebar menu selection logic
-      menuLinks.forEach(link => {
-          link.addEventListener('click', function(e) {
-              // Remove active class from all links
-              menuLinks.forEach(l => l.classList.remove('active'));
-              
-              // Add active class to the clicked link
-              this.classList.add('active');
-
-              // Close sidebar on mobile after click
-              if (window.innerWidth <= 768) {
-                  sidebar.classList.remove('open');
-                  mobileToggle.querySelector('i').setAttribute('data-lucide', 'menu');
-                  lucide.createIcons();
-              }
-          });
-      });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
