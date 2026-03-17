@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- ELEMENTOS DO DOM ---
     const sidebar = document.getElementById('sidebar');
     const mobileToggle = document.getElementById('mobileToggle');
+    const sidebarClose = document.getElementById('sidebarClose');
     const sidebarOverlay = document.getElementById('sidebarOverlay');
     const menuLinks = document.querySelectorAll('.sidebar nav ul li a');
     const sections = document.querySelectorAll('main section');
@@ -21,6 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function toggleSidebar() {
         const isOpened = sidebar.classList.toggle('open');
         sidebarOverlay.classList.toggle('active');
+        document.body.classList.toggle('sidebar-open', isOpened);
         
         // Atualiza acessibilidade
         mobileToggle.setAttribute('aria-expanded', isOpened);
@@ -34,6 +36,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     mobileToggle.addEventListener('click', toggleSidebar);
+
+    if (sidebarClose) {
+        sidebarClose.addEventListener('click', toggleSidebar);
+    }
 
     // Fechar ao clicar no fundo escuro
     sidebarOverlay.addEventListener('click', toggleSidebar);

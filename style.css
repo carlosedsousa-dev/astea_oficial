@@ -113,11 +113,34 @@ body {
     overflow-y: auto;
 }
 
+.sidebar header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 32px;
+}
+
+.sidebar-close {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--primary);
+    cursor: pointer;
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.sidebar-close i {
+    width: 24px;
+    height: 24px;
+}
+
 .sidebar .logo {
     font-size: var(--text-h1);
     font-weight: 700;
     color: var(--primary);
-    margin-bottom: 32px;
+    margin-bottom: 0; /* Removido para alinhar no flex header */
     text-transform: uppercase;
     letter-spacing: 0.05em;
     display: flex;
@@ -455,6 +478,14 @@ footer {
 @media (max-width: 768px) {
     .mobile-toggle {
         display: block;
+    }
+
+    body.sidebar-open .mobile-toggle {
+        display: none;
+    }
+
+    .sidebar-close {
+        display: flex;
     }
 
     .sidebar {
