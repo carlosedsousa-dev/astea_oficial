@@ -58,7 +58,8 @@
                         <input type="text" id="nome-feira" name="nome-feira" placeholder="Ex: Feira de Ciências 2026" required>
                         
                         <label for="descricao-feira">Descrição</label>
-                        <textarea id="descricao-feira" name="descricao-feira" placeholder="Detalhes sobre o evento..."></textarea>
+                        <textarea id="descricao-feira" name="descricao-feira" placeholder="Detalhes sobre o evento..." maxlength="500"></textarea>
+                        <div class="char-count" data-for="descricao-feira">0 / 500</div>
                     </fieldset>
                     
                     <fieldset>
@@ -67,7 +68,7 @@
                         <input type="date" id="data-inicio-inscricoes" name="data-inicio-inscricoes" required>
                         
                         <label for="data-fim-inscricoes">Fim das Inscrições</label>
-                        <input type="date" id="data-fim-inscricoes" name="data-fim-inscricoes" required>
+                        <input type="date" id="data-fim-inscricoes" name="data-fim-inscricoes" required disabled>
                     </fieldset>
                     
                     <fieldset>
@@ -96,12 +97,14 @@
                         <legend>Pacote de Evidências</legend>
                         <label for="arquivo-pdf">Documentação (PDF/IMG)</label>
                         <input type="file" id="arquivo-pdf" name="arquivo-pdf" accept=".pdf,.jpg,.png" required>
+                        <div id="file-info" class="file-info"></div>
                         
                         <label for="resumo">Resumo do Projeto</label>
-                        <textarea id="resumo" name="resumo" placeholder="Descreva os objetivos e resultados..." required></textarea>
+                        <textarea id="resumo" name="resumo" placeholder="Descreva os objetivos e resultados..." required maxlength="1000"></textarea>
+                        <div class="char-count" data-for="resumo">0 / 1000</div>
                     </fieldset>
                     
-                    <button type="submit">Submeter Projeto</button>
+                    <button type="submit" data-confirm="Tem certeza que deseja submeter este projeto? Esta ação é irreversível.">Submeter Projeto</button>
                 </form>
             </section>
             
@@ -114,10 +117,13 @@
                 <article>
                     <h3>Critérios Técnicos</h3>
                     <form>
-                        <label for="nota-criterio1">Originalidade e Inovação (0-10)</label>
-                        <input type="number" id="nota-criterio1" name="nota-criterio1" min="0" max="10" step="0.5">
+                        <div style="display: flex; justify-content: space-between; align-items: center;">
+                            <label for="nota-criterio1">Originalidade e Inovação</label>
+                            <span id="valor-nota" style="font-weight: 700; color: var(--primary);">5.0</span>
+                        </div>
+                        <input type="range" id="nota-criterio1" name="nota-criterio1" min="0" max="10" step="0.1" value="5.0">
                         
-                        <label style="display: flex; align-items: center; gap: 8px; margin-bottom: 20px;">
+                        <label style="display: flex; align-items: center; gap: 8px; margin-bottom: 20px; cursor: pointer;">
                             <input type="checkbox" id="declaracao-conflito" name="declaracao-conflito" required>
                             <span>Declaro ausência de conflito de interesses</span>
                         </label>
@@ -139,9 +145,9 @@
                         <caption>Ranking de Projetos Consolidados</caption>
                         <thead>
                             <tr>
-                                <th>Posição</th>
-                                <th>Projeto</th>
-                                <th>Nota Final</th>
+                                <th class="sortable" data-sort="number">Posição <i data-lucide="chevrons-up-down"></i></th>
+                                <th class="sortable" data-sort="string">Projeto <i data-lucide="chevrons-up-down"></i></th>
+                                <th class="sortable" data-sort="number">Nota Final <i data-lucide="chevrons-up-down"></i></th>
                                 <th>Status</th>
                             </tr>
                         </thead>
@@ -164,6 +170,12 @@
                                 <td>8.9</td>
                                 <td class="status-warning">Em Revisão</td>
                             </tr>
+                            <tr id="empty-state" style="display: none;">
+                                <td colspan="4" style="text-align: center; padding: 40px; color: var(--text-secondary);">
+                                    <i data-lucide="search-x" style="width: 48px; height: 48px; margin-bottom: 12px; opacity: 0.5;"></i>
+                                    <p>Nenhum projeto encontrado para este filtro.</p>
+                                </td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -174,7 +186,7 @@
                 <p>Acompanhe suas notificações e baixe seus certificados digitais.</p>
                 
                 <div style="margin-top: 20px; display: flex; gap: 12px;">
-                    <button type="button" class="btn-secondary" style="background-color: var(--primary-light); color: var(--primary);">Ver Notificações</button>
+                    <button type="button" id="btn-notifications" class="btn-secondary" style="background-color: var(--primary-light); color: var(--primary);">Ver Notificações</button>
                     <button type="button">Baixar Certificado</button>
                 </div>
             </section>
@@ -183,6 +195,44 @@
                 <p>Astea &copy; 2026 | Sistema de Gestão de Feiras Bio-Tech</p>
             </footer>
         </main>
+    </div>
+
+    <!-- Notification Drawer (Sidebar Right) -->
+    <div class="drawer-overlay" id="drawerOverlay" aria-hidden="true"></div>
+    <aside class="drawer" id="notificationDrawer">
+        <header>
+            <h3>Notificações</h3>
+            <button class="drawer-close" id="drawerClose"><i data-lucide="x"></i></button>
+        </header>
+        <div class="drawer-content">
+            <div class="notification-item unread">
+                <div class="notif-icon"><i data-lucide="info"></i></div>
+                <div class="notif-body">
+                    <p><strong>Novo Critério:</strong> A feira "Bio-Tech 2026" atualizou os critérios de avaliação.</p>
+                    <span>há 2 horas</span>
+                </div>
+            </div>
+            <div class="notification-item">
+                <div class="notif-icon"><i data-lucide="check-circle"></i></div>
+                <div class="notif-body">
+                    <p><strong>Submissão Aceita:</strong> Seu projeto "Drone de Reflorestamento" foi validado.</p>
+                    <span>há 1 dia</span>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Confirmation Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-icon"><i data-lucide="alert-triangle"></i></div>
+            <h3 id="modalTitle">Confirmar Ação</h3>
+            <p id="modalMessage">Você tem certeza que deseja prosseguir?</p>
+            <div class="modal-actions">
+                <button class="btn-cancel" id="modalCancel">Cancelar</button>
+                <button class="btn-confirm" id="modalConfirm">Confirmar</button>
+            </div>
+        </div>
     </div>
 
     <!-- Toast Notification Container -->
