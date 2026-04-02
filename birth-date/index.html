@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gerador de Timestamp Relativo</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <div id="horror-ui">
+    <h2>Gerador de Timestamp Relativo</h2>
+
+    <div class="control-panel">
+      <label for="inputA">Fator Primário (A):</label>
+      <input type="range" id="inputA" min="1" max="1000000" step="1" value="1">
+
+      <label for="inputB">Operador Cruzado (B):</label>
+      <input type="range" id="inputB" min="1" max="5000" step="1" value="1">
+
+      <label for="inputC">Inibidor de Progresso (C):</label>
+      <input type="range" id="inputC" min="1" max="10000" step="1" value="1">
+    </div>
+
+    <div class="result-box">
+      <p>Timestamp Gerado:</p>
+      <h1 id="total-output">0</h1>
+      <small>Data Humana Estimada: <span id="human-date">01/01/1970</span></small>
+    </div>
+
+    <button id="db-save" type="button">TENTAR SALVAR</button>
+  </div>
+
+  <script src="./script.js"></script>
+</body>
+</html>
